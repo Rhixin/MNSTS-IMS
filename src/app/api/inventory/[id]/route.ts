@@ -5,7 +5,7 @@ import { ApiResponse } from '@/types'
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const token = request.cookies.get('token')?.value
@@ -24,8 +24,9 @@ export async function GET(
       }, { status: 401 })
     }
 
+    const { id } = await params
     const item = await prisma.inventoryItem.findUnique({
-      where: { id: params.id },
+      where: { id },
       include: {
         category: true,
         user: {
@@ -76,7 +77,7 @@ export async function GET(
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const token = request.cookies.get('token')?.value
@@ -95,8 +96,9 @@ export async function PUT(
       }, { status: 401 })
     }
 
+    const { id } = await params
     const existingItem = await prisma.inventoryItem.findUnique({
-      where: { id: params.id }
+      where: { id }
     })
 
     if (!existingItem) {
@@ -150,14 +152,14 @@ export async function PUT(
           quantity: Math.abs(quantityDiff),
           reason: 'Stock adjustment',
           notes: `Quantity updated from ${existingItem.quantity} to ${quantity}`,
-          itemId: params.id,
+          itemId: id,
           userId: user.id
         }
       })
     }
 
     const updatedItem = await prisma.inventoryItem.update({
-      where: { id: params.id },
+      where: { id },
       data: {
         name,
         description,
@@ -201,7 +203,7 @@ export async function PUT(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const token = request.cookies.get('token')?.value
@@ -220,8 +222,9 @@ export async function DELETE(
       }, { status: 401 })
     }
 
+    const { id } = await params
     const item = await prisma.inventoryItem.findUnique({
-      where: { id: params.id }
+      where: { id }
     })
 
     if (!item) {
@@ -233,7 +236,7 @@ export async function DELETE(
 
     // Soft delete by setting isActive to false
     await prisma.inventoryItem.update({
-      where: { id: params.id },
+      where: { id },
       data: { isActive: false }
     })
 
@@ -244,7 +247,7 @@ export async function DELETE(
         quantity: item.quantity,
         reason: 'Item deleted',
         notes: 'Item removed from inventory',
-        itemId: params.id,
+        itemId: id,
         userId: user.id
       }
     })

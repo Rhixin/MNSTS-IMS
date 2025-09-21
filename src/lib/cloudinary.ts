@@ -22,7 +22,8 @@ export async function uploadToCloudinary(
   } = {}
 ): Promise<UploadResult> {
   try {
-    const result = await cloudinary.uploader.upload(file, {
+    const fileToUpload = Buffer.isBuffer(file) ? `data:image/jpeg;base64,${file.toString('base64')}` : file
+    const result = await cloudinary.uploader.upload(fileToUpload, {
       folder: options.folder || 'mnsts-ims',
       public_id: options.public_id,
       transformation: options.transformation || [

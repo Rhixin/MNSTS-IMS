@@ -1,5 +1,8 @@
 import { User, InventoryItem, Category, StockMovement, Report, ConsumptionPattern } from '@prisma/client'
 
+// Re-export Prisma types
+export type { Category }
+
 // User types
 export interface UserWithoutPassword extends Omit<User, 'password'> {}
 

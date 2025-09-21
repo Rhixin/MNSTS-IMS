@@ -3,7 +3,7 @@ import { prisma } from '@/lib/prisma'
 import { getUserFromToken } from '@/lib/auth'
 import { ApiResponse } from '@/types'
 
-export async function PUT(request: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const token = request.cookies.get('token')?.value
     if (!token) {
@@ -22,7 +22,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
     }
 
     const { name, description, color } = await request.json()
-    const categoryId = params.id
+    const { id: categoryId } = await params
 
     if (!name) {
       return NextResponse.json<ApiResponse>({
@@ -82,7 +82,7 @@ export async function PUT(request: NextRequest, { params }: { params: { id: stri
   }
 }
 
-export async function DELETE(request: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
     const token = request.cookies.get('token')?.value
     if (!token) {
@@ -100,7 +100,7 @@ export async function DELETE(request: NextRequest, { params }: { params: { id: s
       }, { status: 401 })
     }
 
-    const categoryId = params.id
+    const { id: categoryId } = await params
 
     // Check if category exists
     const existingCategory = await prisma.category.findUnique({

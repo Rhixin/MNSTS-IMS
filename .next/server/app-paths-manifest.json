@@ -1,9 +1,0 @@
-{
-  "/api/auth/logout/route": "app/api/auth/logout/route.js",
-  "/login/page": "app/login/page.js",
-  "/(dashboard)/overview/page": "app/(dashboard)/overview/page.js",
-  "/(dashboard)/reports/page": "app/(dashboard)/reports/page.js",
-  "/(dashboard)/stock-in/page": "app/(dashboard)/stock-in/page.js",
-  "/(dashboard)/stock-out/page": "app/(dashboard)/stock-out/page.js",
-  "/(dashboard)/inventory/page": "app/(dashboard)/inventory/page.js"
-}
