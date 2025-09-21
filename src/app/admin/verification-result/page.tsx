@@ -2,8 +2,9 @@
 
 import { useSearchParams } from 'next/navigation'
 import { CheckCircleIcon, XCircleIcon, UserIcon } from '@heroicons/react/24/outline'
+import { Suspense } from 'react'
 
-export default function VerificationResultPage() {
+function VerificationResultContent() {
   const searchParams = useSearchParams()
   const action = searchParams.get('action') // 'approved' or 'rejected'
   const userName = searchParams.get('user') || 'Unknown User'
@@ -99,5 +100,20 @@ export default function VerificationResultPage() {
         </div>
       </div>
     </main>
+  )
+}
+
+export default function VerificationResultPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-primary-cream to-accent-lightGold flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-forest mx-auto mb-4"></div>
+          <p className="text-secondary-gray">Loading...</p>
+        </div>
+      </div>
+    }>
+      <VerificationResultContent />
+    </Suspense>
   )
 }

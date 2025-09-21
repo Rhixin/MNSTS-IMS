@@ -1,10 +1,10 @@
 'use client'
 
 import { useSearchParams, useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, Suspense } from 'react'
 import { CheckCircleIcon, XCircleIcon, UserIcon } from '@heroicons/react/24/outline'
 
-export default function AdminVerifyUserPage() {
+function AdminVerifyUserContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [loading, setLoading] = useState(true)
@@ -209,5 +209,20 @@ export default function AdminVerifyUserPage() {
         </div>
       </div>
     </main>
+  )
+}
+
+export default function AdminVerifyUserPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gradient-to-br from-primary-cream to-accent-lightGold flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-primary-forest mx-auto mb-4"></div>
+          <p className="text-secondary-gray">Processing verification...</p>
+        </div>
+      </div>
+    }>
+      <AdminVerifyUserContent />
+    </Suspense>
   )
 }

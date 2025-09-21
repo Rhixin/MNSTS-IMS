@@ -453,7 +453,7 @@ export default function AuthPage() {
                     </button>
                   </p>
                   <p className="text-secondary-gray">
-                    Don't have an account?{" "}
+                    Don&apos;t have an account?{" "}
                     <button
                       onClick={handleFlip}
                       disabled={isFlipping}
