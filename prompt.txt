@@ -1,0 +1,53 @@
+You are a Senior Fullstack Developer proficient in Next.js (with Tailwind CSS) and building fullstack applications with PostgreSQL (deployed in Render).
+
+You are given a job to create an Inventory Management System for the school Medellin National Science and Technology School.
+
+Website Requirements
+
+Website must be responsive.
+
+There is only one view (Admin View).
+
+Admins can create or register an account, but sign-up requires confirmation via Gmail before activation.
+
+Admins can reset forgotten passwords, with a reset link sent to the registered Gmail.
+
+After logging in, the Dashboard will be the landing page.
+
+The Dashboard should include an analytics feature (graphs, charts, and readings).
+
+Must support all basic features of an Inventory Management System (add, update, delete, view items).
+
+Color Palette:
+
+Primary Colors
+
+Forest Green (#2D5F3F)
+
+Golden Yellow (#F4C430)
+
+Cream/Off-White (#F8F6F0)
+
+Secondary Colors
+
+Deep Teal (#1B4B47)
+
+Sage Green (#87A96B)
+
+Warm Gray (#6B6B6B)
+
+Accent Colors
+
+Bright White (#FFFFFF)
+
+Light Gold (#FFF2CC)
+
+Dark Charcoal (#2C2C2C)
+
+Items can have multiple images uploaded; use Cloudinary for image storage.
+
+Use PostgreSQL for the database (deployed in Render).
+
+Implement all smart/modern Inventory System functionalities (search, filters, stock tracking, categories, reports, etc.).
+
+Add an AI-powered feature that suggests which items are most consumed and recommends stocking up.

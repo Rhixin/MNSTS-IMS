@@ -1,0 +1,147 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id                String   @id @default(cuid())
+  email             String   @unique
+  password          String
+  firstName         String
+  lastName          String
+  isVerified        Boolean  @default(false)
+  verificationToken String?
+  resetPasswordToken String?
+  resetPasswordExpires DateTime?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  // Relations
+  inventoryItems    InventoryItem[]
+  stockMovements    StockMovement[]
+  reports          Report[]
+
+  @@map("users")
+}
+
+model Category {
+  id          String   @id @default(cuid())
+  name        String   @unique
+  description String?
+  color       String   @default("#6B7280")
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  // Relations
+  inventoryItems InventoryItem[]
+
+  @@map("categories")
+}
+
+model InventoryItem {
+  id           String   @id @default(cuid())
+  name         String
+  description  String?
+  sku          String   @unique
+  barcode      String?
+  quantity     Int      @default(0)
+  minStock     Int      @default(5)
+  maxStock     Int      @default(100)
+  unitPrice    Decimal  @db.Decimal(10, 2)
+  location     String?
+  imageUrls    String[] @default([])
+  isActive     Boolean  @default(true)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  
+  // Foreign keys
+  categoryId   String
+  createdBy    String
+
+  // Relations
+  category       Category        @relation(fields: [categoryId], references: [id])
+  user          User            @relation(fields: [createdBy], references: [id])
+  stockMovements StockMovement[]
+  
+  @@map("inventory_items")
+  @@index([categoryId])
+  @@index([createdBy])
+  @@index([sku])
+}
+
+enum MovementType {
+  IN
+  OUT
+  ADJUSTMENT
+  TRANSFER
+}
+
+model StockMovement {
+  id          String       @id @default(cuid())
+  type        MovementType
+  quantity    Int
+  reason      String?
+  notes       String?
+  createdAt   DateTime     @default(now())
+  
+  // Foreign keys
+  itemId      String
+  userId      String
+  
+  // Relations
+  item        InventoryItem @relation(fields: [itemId], references: [id])
+  user        User          @relation(fields: [userId], references: [id])
+  
+  @@map("stock_movements")
+  @@index([itemId])
+  @@index([userId])
+  @@index([createdAt])
+}
+
+enum ReportType {
+  LOW_STOCK
+  INVENTORY_SUMMARY
+  CONSUMPTION_ANALYSIS
+  STOCK_MOVEMENT
+}
+
+model Report {
+  id          String     @id @default(cuid())
+  type        ReportType
+  title       String
+  data        Json
+  generatedAt DateTime   @default(now())
+  
+  // Foreign keys
+  generatedBy String
+  
+  // Relations
+  user        User       @relation(fields: [generatedBy], references: [id])
+  
+  @@map("reports")
+  @@index([generatedBy])
+  @@index([type])
+}
+
+model ConsumptionPattern {
+  id            String   @id @default(cuid())
+  itemId        String
+  monthYear     String   // Format: "2024-01"
+  consumedQty   Int
+  averageDaily  Decimal  @db.Decimal(5, 2)
+  trend         String?  // "increasing", "decreasing", "stable"
+  prediction    Json?    // AI prediction data
+  createdAt     DateTime @default(now())
+  
+  @@map("consumption_patterns")
+  @@unique([itemId, monthYear])
+  @@index([itemId])
+  @@index([monthYear])
+}
