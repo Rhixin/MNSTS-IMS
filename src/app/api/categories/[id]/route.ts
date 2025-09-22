@@ -107,7 +107,13 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
       where: { id: categoryId },
       include: {
         _count: {
-          select: { inventoryItems: true }
+          select: {
+            inventoryItems: {
+              where: {
+                isActive: true
+              }
+            }
+          }
         }
       }
     })
