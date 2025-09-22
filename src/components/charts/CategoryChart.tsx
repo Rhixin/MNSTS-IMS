@@ -8,6 +8,7 @@ interface CategoryData {
   value: number
   color: string
   count: number
+  [key: string]: any
 }
 
 export default function CategoryChart() {
