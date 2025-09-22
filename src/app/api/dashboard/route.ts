@@ -176,7 +176,7 @@ export async function GET(request: NextRequest) {
           sku: item.sku,
           currentStock: item.quantity,
           minStock: item.minStock,
-          category: item.category.name,
+          category: item.category?.name || 'No category',
           urgency: item.quantity === 0 ? 'critical' : item.quantity <= Math.floor(item.minStock * 0.5) ? 'high' : 'medium'
         }))
       }

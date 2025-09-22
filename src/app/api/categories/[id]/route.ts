@@ -125,13 +125,24 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
       }, { status: 404 })
     }
 
-    // Check if category has inventory items
+    // Check if category has active inventory items
     if (existingCategory._count.inventoryItems > 0) {
       return NextResponse.json<ApiResponse>({
         success: false,
-        error: `Cannot delete category. It contains ${existingCategory._count.inventoryItems} items. Please reassign or delete those items first.`
+        error: `Cannot delete category. It contains ${existingCategory._count.inventoryItems} active items. Please reassign or delete those items first.`
       }, { status: 400 })
     }
+
+    // Set categoryId to null for inactive items before deleting the category
+    await prisma.inventoryItem.updateMany({
+      where: {
+        categoryId: categoryId,
+        isActive: false
+      },
+      data: {
+        categoryId: null
+      }
+    })
 
     await prisma.category.delete({
       where: { id: categoryId }

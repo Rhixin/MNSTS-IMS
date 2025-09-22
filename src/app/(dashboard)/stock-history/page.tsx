@@ -274,13 +274,15 @@ export default function StockHistoryPage() {
                           <div>
                             <p className="font-medium text-primary-forest text-xs sm:text-sm">{movement.item.name}</p>
                             <p className="text-xs text-secondary-gray">SKU: {movement.item.sku}</p>
-                            <div className="flex items-center mt-1">
-                              <div
-                                className="w-2 h-2 sm:w-3 sm:h-3 rounded-full mr-1 sm:mr-2"
-                                style={{ backgroundColor: movement.item.category.color }}
-                              ></div>
-                              <span className="text-xs text-secondary-gray">{movement.item.category.name}</span>
-                            </div>
+                            {movement.item.category && (
+                              <div className="flex items-center mt-1">
+                                <div
+                                  className="w-2 h-2 sm:w-3 sm:h-3 rounded-full mr-1 sm:mr-2"
+                                  style={{ backgroundColor: movement.item.category.color }}
+                                ></div>
+                                <span className="text-xs text-secondary-gray">{movement.item.category.name}</span>
+                              </div>
+                            )}
                           </div>
                         </td>
                         <td className="py-3 sm:py-4 px-3 sm:px-6">

@@ -58,7 +58,7 @@ export default function ItemForm({
         maxStock: editingItem.maxStock,
         unitPrice: parseFloat(editingItem.unitPrice.toString()),
         location: editingItem.location || "",
-        categoryId: editingItem.categoryId,
+        categoryId: editingItem.categoryId || undefined,
         imageUrls: editingItem.imageUrls || [],
       });
     } else {

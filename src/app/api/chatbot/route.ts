@@ -50,7 +50,7 @@ export async function POST(request: NextRequest) {
       lowStockItems: items.filter(item => item.quantity <= item.minStock),
       topItems: items.slice(0, 10).map(item => ({
         name: item.name,
-        category: item.category.name,
+        category: item.category?.name || 'No category',
         quantity: item.quantity,
         minStock: item.minStock,
         unitPrice: Number(item.unitPrice)

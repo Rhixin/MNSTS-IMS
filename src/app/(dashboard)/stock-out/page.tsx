@@ -207,7 +207,7 @@ export default function StockOutPage() {
                       </div>
                       <div>
                         <span className="text-secondary-gray">Category:</span>
-                        <span className="ml-2 font-medium">{selectedItemData.category.name}</span>
+                        <span className="ml-2 font-medium">{selectedItemData.category?.name || 'No category'}</span>
                       </div>
                     </div>
                   </div>

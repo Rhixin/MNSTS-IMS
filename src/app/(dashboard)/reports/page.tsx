@@ -170,7 +170,7 @@ export default function ReportsPage() {
           ...reportData.allItems.map(item => [
             item.name,
             item.sku,
-            item.category.name,
+            item.category?.name || 'No category',
             item.quantity,
             item.minStock,
             `₱${parseFloat(item.unitPrice.toString()).toLocaleString()}`,
@@ -191,7 +191,7 @@ export default function ReportsPage() {
           ...reportData.lowStockItems.map(item => [
             item.name,
             item.sku,
-            item.category.name,
+            item.category?.name || 'No category',
             item.quantity,
             item.minStock,
             item.minStock - item.quantity
@@ -219,7 +219,7 @@ export default function ReportsPage() {
 
         // Detailed breakdown by category
         reportData.categoryStats.forEach(stat => {
-          const categoryItems = reportData.allItems.filter(item => item.category.name === stat.categoryName)
+          const categoryItems = reportData.allItems.filter(item => item.category?.name === stat.categoryName)
           if (categoryItems.length > 0) {
             const categoryDetailData = [
               [`${stat.categoryName} - Detailed Items`, ''],
@@ -276,7 +276,7 @@ export default function ReportsPage() {
           ...reportData.allItems.map(item => [
             item.name,
             item.sku,
-            item.category.name,
+            item.category?.name || 'No category',
             item.quantity,
             item.quantity === 0 ? 'Out of Stock' :
             item.quantity <= item.minStock ? 'Low Stock' : 'In Stock'
@@ -364,13 +364,17 @@ export default function ReportsPage() {
                         <td className="py-3 font-medium">{item.name}</td>
                         <td className="py-3 text-secondary-gray">{item.sku}</td>
                         <td className="py-3">
-                          <div className="flex items-center">
-                            <div
-                              className="w-3 h-3 rounded-full mr-2"
-                              style={{ backgroundColor: item.category.color }}
-                            ></div>
-                            {item.category.name}
-                          </div>
+                          {item.category ? (
+                            <div className="flex items-center">
+                              <div
+                                className="w-3 h-3 rounded-full mr-2"
+                                style={{ backgroundColor: item.category.color }}
+                              ></div>
+                              {item.category.name}
+                            </div>
+                          ) : (
+                            <span className="text-secondary-gray">No category</span>
+                          )}
                         </td>
                         <td className="py-3">{item.quantity}</td>
                         <td className="py-3">{item.minStock}</td>
@@ -411,7 +415,7 @@ export default function ReportsPage() {
                   <div key={item.id} className="flex justify-between items-center p-4 bg-red-50 rounded-lg border border-red-200">
                     <div>
                       <h4 className="font-medium text-red-800">{item.name}</h4>
-                      <p className="text-sm text-red-600">SKU: {item.sku} | Category: {item.category.name}</p>
+                      <p className="text-sm text-red-600">SKU: {item.sku} | Category: {item.category?.name || 'No category'}</p>
                     </div>
                     <div className="text-right">
                       <p className="font-semibold text-red-800">Current: {item.quantity}</p>
@@ -535,7 +539,7 @@ export default function ReportsPage() {
                       <tr key={index} className="border-b border-secondary-sage/10">
                         <td className="py-3">{item.name}</td>
                         <td className="py-3">{item.sku}</td>
-                        <td className="py-3">{item.category.name}</td>
+                        <td className="py-3">{item.category?.name || 'No category'}</td>
                         <td className="py-3">{item.quantity}</td>
                         <td className="py-3">
                           <span className={`px-2 py-1 rounded-full text-xs font-medium ${

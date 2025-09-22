@@ -308,13 +308,17 @@ export default function ItemDetailsPage() {
 
                   <div>
                     <label className="block text-sm font-medium text-secondary-gray mb-1">Category</label>
-                    <div className="flex items-center space-x-2">
-                      <div
-                        className="w-4 h-4 rounded-full border border-gray-300"
-                        style={{ backgroundColor: item.category.color }}
-                      ></div>
-                      <span className="text-primary-forest">{item.category.name}</span>
-                    </div>
+                    {item.category ? (
+                      <div className="flex items-center space-x-2">
+                        <div
+                          className="w-4 h-4 rounded-full border border-gray-300"
+                          style={{ backgroundColor: item.category.color }}
+                        ></div>
+                        <span className="text-primary-forest">{item.category.name}</span>
+                      </div>
+                    ) : (
+                      <span className="text-secondary-gray">No category assigned</span>
+                    )}
                   </div>
                 </div>
 

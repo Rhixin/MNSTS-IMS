@@ -112,12 +112,14 @@ export default function ItemCard({ item, onEdit, onDelete, onViewDetails }: Item
           <h3 className="text-lg font-semibold text-primary-forest line-clamp-2">
             {item.name}
           </h3>
-          <span 
-            className="px-2 py-1 text-xs font-medium rounded-full text-white ml-2 flex-shrink-0"
-            style={{ backgroundColor: item.category.color }}
-          >
-            {item.category.name}
-          </span>
+          {item.category && (
+            <span
+              className="px-2 py-1 text-xs font-medium rounded-full text-white ml-2 flex-shrink-0"
+              style={{ backgroundColor: item.category.color }}
+            >
+              {item.category.name}
+            </span>
+          )}
         </div>
 
         {item.description && (

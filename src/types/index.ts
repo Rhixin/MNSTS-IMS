@@ -16,11 +16,11 @@ export interface UserSession {
 
 // Inventory types
 export interface InventoryItemWithCategory extends InventoryItem {
-  category: Category
+  category: Category | null
 }
 
 export interface InventoryItemWithDetails extends InventoryItem {
-  category: Category
+  category: Category | null
   user: UserWithoutPassword
   stockMovements: StockMovement[]
 }
@@ -85,7 +85,7 @@ export interface ItemForm {
   maxStock: number
   unitPrice: number
   location?: string
-  categoryId: string
+  categoryId?: string
   imageUrls: string[]
 }
 
