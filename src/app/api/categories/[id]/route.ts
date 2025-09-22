@@ -140,7 +140,7 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
         isActive: false
       },
       data: {
-        categoryId: null as string | null
+        categoryId: { set: null }
       }
     })
 
