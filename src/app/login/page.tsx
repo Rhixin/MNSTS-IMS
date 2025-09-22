@@ -117,15 +117,15 @@ export default function AuthPage() {
   if (success) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-primary-cream to-accent-lightGold flex items-center justify-center p-4">
-        <div className="w-full max-w-5xl">
+        <div className="w-full max-w-md sm:max-w-2xl lg:max-w-5xl">
           <div className="bg-accent-white rounded-2xl shadow-xl overflow-hidden">
-            <div className="grid md:grid-cols-2">
-              <div className="bg-primary-forest p-8 flex items-center justify-center">
-                <h1 className="text-6xl font-bold text-accent-white tracking-wider">
+            <div className="grid lg:grid-cols-2">
+              <div className="bg-primary-forest p-6 sm:p-8 flex items-center justify-center lg:order-first order-last">
+                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-accent-white tracking-wider">
                   MNSTS
                 </h1>
               </div>
-              <div className="p-8 flex items-center justify-center">
+              <div className="p-6 sm:p-8 flex items-center justify-center">
                 <div className="text-center max-w-md">
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <svg
@@ -142,10 +142,10 @@ export default function AuthPage() {
                       ></path>
                     </svg>
                   </div>
-                  <h2 className="text-2xl font-bold text-primary-forest mb-4">
+                  <h2 className="text-xl sm:text-2xl font-bold text-primary-forest mb-4">
                     Registration Submitted Successfully!
                   </h2>
-                  <p className="text-secondary-gray mb-6">
+                  <p className="text-sm sm:text-base text-secondary-gray mb-6">
                     Your registration has been submitted and is pending admin approval.
                     The system administrator will review your request and activate your account.
                   </p>
@@ -166,7 +166,7 @@ export default function AuthPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-primary-cream to-accent-lightGold flex items-center justify-center p-4">
-      <div className="w-full max-w-6xl">
+      <div className="w-full max-w-md sm:max-w-2xl lg:max-w-6xl">
         <div
           className="relative bg-accent-white rounded-2xl shadow-2xl overflow-hidden"
           style={{
@@ -174,25 +174,25 @@ export default function AuthPage() {
             perspectiveOrigin: "50% 50%",
           }}
         >
-          <div className="grid md:grid-cols-2 min-h-[700px]">
+          <div className="grid lg:grid-cols-2 min-h-[500px] sm:min-h-[600px] lg:min-h-[700px]">
             {/* Left Side - Register Form (Always here, gets revealed when logo flips away) */}
-            <div className="bg-accent-white p-12 flex flex-col justify-center">
+            <div className={`bg-accent-white p-6 sm:p-8 lg:p-12 flex flex-col justify-center ${isLogin ? 'hidden lg:flex' : 'flex'}`}>
               <div className="max-w-sm mx-auto w-full">
                 <div className="text-center mb-6">
-                  <h1 className="text-3xl font-bold text-primary-forest mb-2">
+                  <h1 className="text-2xl sm:text-3xl font-bold text-primary-forest mb-2">
                     Create Account
                   </h1>
-                  <p className="text-secondary-gray">Join MNSTS IMS</p>
+                  <p className="text-sm sm:text-base text-secondary-gray">Join MNSTS IMS</p>
                 </div>
 
-                <form onSubmit={handleRegisterSubmit} className="space-y-4">
+                <form onSubmit={handleRegisterSubmit} className="space-y-3 sm:space-y-4">
                   {error && !isLogin && (
                     <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
                       {error}
                     </div>
                   )}
 
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label
                         htmlFor="firstName"
@@ -211,7 +211,7 @@ export default function AuthPage() {
                             firstName: e.target.value,
                           })
                         }
-                        className="w-full px-3 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors"
+                        className="w-full px-3 py-2.5 sm:py-3 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors text-sm sm:text-base"
                         placeholder="First name"
                       />
                     </div>
@@ -233,7 +233,7 @@ export default function AuthPage() {
                             lastName: e.target.value,
                           })
                         }
-                        className="w-full px-3 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors"
+                        className="w-full px-3 py-2.5 sm:py-3 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors text-sm sm:text-base"
                         placeholder="Last name"
                       />
                     </div>
@@ -257,7 +257,7 @@ export default function AuthPage() {
                           email: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 sm:py-3.5 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors text-sm sm:text-base"
                       placeholder="Enter your email"
                     />
                   </div>
@@ -281,7 +281,7 @@ export default function AuthPage() {
                             password: e.target.value,
                           })
                         }
-                        className="w-full px-4 py-3 pr-12 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors"
+                        className="w-full px-4 py-3 sm:py-3.5 pr-12 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors text-sm sm:text-base"
                         placeholder="At least 8 characters"
                       />
                       <button
@@ -317,7 +317,7 @@ export default function AuthPage() {
                             confirmPassword: e.target.value,
                           })
                         }
-                        className="w-full px-4 py-3 pr-12 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors"
+                        className="w-full px-4 py-3 sm:py-3.5 pr-12 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors text-sm sm:text-base"
                         placeholder="Confirm your password"
                       />
                       <button
@@ -337,7 +337,7 @@ export default function AuthPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-primary-forest text-accent-white py-3 px-4 rounded-lg hover:bg-secondary-teal transition-colors duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-primary-forest text-accent-white py-3 sm:py-3.5 px-4 rounded-lg hover:bg-secondary-teal transition-colors duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                   >
                     {loading ? "Creating Account..." : "Create Account"}
                   </button>
@@ -359,16 +359,16 @@ export default function AuthPage() {
             </div>
 
             {/* Right Side - Login Form (Always here, gets revealed when logo flips away) */}
-            <div className="bg-accent-white p-12 flex flex-col justify-center">
+            <div className={`bg-accent-white p-6 sm:p-8 lg:p-12 flex flex-col justify-center ${!isLogin ? 'hidden lg:flex' : 'flex'}`}>
               <div className="max-w-sm mx-auto w-full">
-                <div className="text-center mb-8">
-                  <h1 className="text-3xl font-bold text-primary-forest mb-2">
+                <div className="text-center mb-6 sm:mb-8">
+                  <h1 className="text-2xl sm:text-3xl font-bold text-primary-forest mb-2">
                     Welcome Back
                   </h1>
-                  <p className="text-secondary-gray">Sign in to your account</p>
+                  <p className="text-sm sm:text-base text-secondary-gray">Sign in to your account</p>
                 </div>
 
-                <form onSubmit={handleLoginSubmit} className="space-y-6">
+                <form onSubmit={handleLoginSubmit} className="space-y-4 sm:space-y-6">
                   {error && isLogin && (
                     <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-lg">
                       {error}
@@ -393,7 +393,7 @@ export default function AuthPage() {
                           email: e.target.value,
                         })
                       }
-                      className="w-full px-4 py-3 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors"
+                      className="w-full px-4 py-3 sm:py-3.5 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors text-sm sm:text-base"
                       placeholder="Enter your email"
                     />
                   </div>
@@ -417,7 +417,7 @@ export default function AuthPage() {
                             password: e.target.value,
                           })
                         }
-                        className="w-full px-4 py-3 pr-12 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors"
+                        className="w-full px-4 py-3 sm:py-3.5 pr-12 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent transition-colors text-sm sm:text-base"
                         placeholder="Enter your password"
                       />
                       <button
@@ -437,7 +437,7 @@ export default function AuthPage() {
                   <button
                     type="submit"
                     disabled={loading}
-                    className="w-full bg-primary-forest text-accent-white py-3 px-4 rounded-lg hover:bg-secondary-teal transition-colors duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="w-full bg-primary-forest text-accent-white py-3 sm:py-3.5 px-4 rounded-lg hover:bg-secondary-teal transition-colors duration-200 font-medium disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                   >
                     {loading ? "Signing In..." : "Sign In"}
                   </button>
@@ -467,8 +467,19 @@ export default function AuthPage() {
             </div>
 
             {/* Sliding Logo Component */}
+            {/* Mobile-friendly header - visible on small screens */}
+            <div className="lg:hidden bg-primary-forest p-6 text-center">
+              <h2 className="text-4xl sm:text-5xl font-bold text-accent-white mb-2 tracking-wider">
+                MNSTS
+              </h2>
+              <p className="text-accent-lightGold text-sm sm:text-base">
+                Inventory Management System
+              </p>
+            </div>
+
+            {/* Desktop sliding panel - hidden on mobile */}
             <div
-              className={`absolute top-0 bottom-0 w-1/2 transition-all duration-500 ease-in-out bg-primary-forest ${
+              className={`hidden lg:block absolute top-0 bottom-0 w-1/2 transition-all duration-500 ease-in-out bg-primary-forest ${
                 isFlipping ? "shadow-2xl" : "shadow-xl"
               }`}
               style={{

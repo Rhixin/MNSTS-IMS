@@ -75,65 +75,65 @@ export default function OverviewPage() {
   }
 
   return (
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Page Header */}
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-primary-forest">Overview</h1>
-          <p className="text-secondary-gray">Dashboard analytics and key metrics</p>
+        <div className="mb-6 sm:mb-8">
+          <h1 className="text-xl sm:text-2xl font-bold text-primary-forest">Overview</h1>
+          <p className="text-sm sm:text-base text-secondary-gray">Dashboard analytics and key metrics</p>
         </div>
 
         {/* Dashboard Stats */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-secondary-gray">Total Items</p>
-                <p className="text-3xl font-bold text-primary-forest">{stats.totalItems}</p>
+                <p className="text-xs sm:text-sm font-medium text-secondary-gray">Total Items</p>
+                <p className="text-2xl sm:text-3xl font-bold text-primary-forest">{stats.totalItems}</p>
               </div>
-              <div className="p-3 bg-primary-golden/10 rounded-lg">
-                <svg className="w-8 h-8 text-primary-golden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="p-2 sm:p-3 bg-primary-golden/10 rounded-lg flex-shrink-0">
+                <svg className="w-6 h-6 sm:w-8 sm:h-8 text-primary-golden" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
               </div>
             </div>
           </div>
 
-          <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
+          <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-secondary-gray">Low Stock Items</p>
-                <p className="text-3xl font-bold text-red-600">{stats.lowStockItems}</p>
+                <p className="text-xs sm:text-sm font-medium text-secondary-gray">Low Stock Items</p>
+                <p className="text-2xl sm:text-3xl font-bold text-red-600">{stats.lowStockItems}</p>
               </div>
-              <div className="p-3 bg-red-100 rounded-lg">
-                <svg className="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="p-2 sm:p-3 bg-red-100 rounded-lg flex-shrink-0">
+                <svg className="w-6 h-6 sm:w-8 sm:h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.854-.833-2.624 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z" />
                 </svg>
               </div>
             </div>
           </div>
 
-          <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
+          <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-secondary-gray">Total Value</p>
-                <p className="text-3xl font-bold text-primary-forest">₱{stats.totalValue.toLocaleString()}</p>
+                <p className="text-xs sm:text-sm font-medium text-secondary-gray">Total Value</p>
+                <p className="text-2xl sm:text-3xl font-bold text-primary-forest">₱{stats.totalValue.toLocaleString()}</p>
               </div>
-              <div className="p-3 bg-green-100 rounded-lg">
-                <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="p-2 sm:p-3 bg-green-100 rounded-lg flex-shrink-0">
+                <svg className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
                 </svg>
               </div>
             </div>
           </div>
 
-          <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
+          <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm font-medium text-secondary-gray">Recent Movements</p>
-                <p className="text-3xl font-bold text-primary-forest">{stats.recentMovements}</p>
+                <p className="text-xs sm:text-sm font-medium text-secondary-gray">Recent Movements</p>
+                <p className="text-2xl sm:text-3xl font-bold text-primary-forest">{stats.recentMovements}</p>
               </div>
-              <div className="p-3 bg-secondary-sage/10 rounded-lg">
-                <svg className="w-8 h-8 text-secondary-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="p-2 sm:p-3 bg-secondary-sage/10 rounded-lg flex-shrink-0">
+                <svg className="w-6 h-6 sm:w-8 sm:h-8 text-secondary-sage" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
@@ -142,7 +142,7 @@ export default function OverviewPage() {
         </div>
 
         {/* Analytics Charts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
           <StockChart />
           <CategoryChart />
         </div>
@@ -152,42 +152,42 @@ export default function OverviewPage() {
         </div>
 
         {/* Quick Actions and Alerts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
-            <h2 className="text-xl font-bold text-primary-forest mb-4">Quick Actions</h2>
-            <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+          <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
+            <h2 className="text-lg sm:text-xl font-bold text-primary-forest mb-3 sm:mb-4">Quick Actions</h2>
+            <div className="grid grid-cols-2 gap-3 sm:gap-4">
               <button 
                 onClick={() => router.push('/inventory')}
-                className="bg-primary-forest text-accent-white p-4 rounded-lg hover:bg-secondary-teal transition-colors text-center"
+                className="bg-primary-forest text-accent-white p-3 sm:p-4 rounded-lg hover:bg-secondary-teal transition-colors text-center text-sm sm:text-base"
               >
-                <svg className="w-6 h-6 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 mx-auto mb-1 sm:mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 4v16m8-8H4" />
                 </svg>
                 Add Item
               </button>
               <button 
                 onClick={() => router.push('/stock-in')}
-                className="bg-primary-golden text-primary-forest p-4 rounded-lg hover:bg-accent-lightGold transition-colors text-center"
+                className="bg-primary-golden text-primary-forest p-3 sm:p-4 rounded-lg hover:bg-accent-lightGold transition-colors text-center text-sm sm:text-base"
               >
-                <svg className="w-6 h-6 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 mx-auto mb-1 sm:mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
                 </svg>
                 Stock In
               </button>
               <button 
                 onClick={() => router.push('/stock-out')}
-                className="bg-secondary-sage text-accent-white p-4 rounded-lg hover:bg-secondary-teal transition-colors text-center"
+                className="bg-secondary-sage text-accent-white p-3 sm:p-4 rounded-lg hover:bg-secondary-teal transition-colors text-center text-sm sm:text-base"
               >
-                <svg className="w-6 h-6 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 mx-auto mb-1 sm:mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                 </svg>
                 Stock Out
               </button>
               <button 
                 onClick={() => router.push('/reports')}
-                className="bg-secondary-gray text-accent-white p-4 rounded-lg hover:bg-accent-charcoal transition-colors text-center"
+                className="bg-secondary-gray text-accent-white p-3 sm:p-4 rounded-lg hover:bg-accent-charcoal transition-colors text-center text-sm sm:text-base"
               >
-                <svg className="w-6 h-6 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-5 h-5 sm:w-6 sm:h-6 mx-auto mb-1 sm:mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
                 Reports
@@ -195,9 +195,9 @@ export default function OverviewPage() {
             </div>
           </div>
 
-          <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
-            <h2 className="text-xl font-bold text-primary-forest mb-4">Low Stock Alerts</h2>
-            <div className="space-y-3">
+          <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
+            <h2 className="text-lg sm:text-xl font-bold text-primary-forest mb-3 sm:mb-4">Low Stock Alerts</h2>
+            <div className="space-y-2 sm:space-y-3">
               {alertsLoading ? (
                 <div className="flex items-center justify-center py-8">
                   <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-primary-forest"></div>
@@ -206,7 +206,7 @@ export default function OverviewPage() {
                 lowStockAlerts.map((alert) => (
                   <div
                     key={alert.id}
-                    className={`flex items-center justify-between p-3 rounded-lg border ${
+                    className={`flex items-center justify-between p-2 sm:p-3 rounded-lg border ${
                       alert.priorityColor === 'red'
                         ? 'bg-red-50 border-red-200'
                         : alert.priorityColor === 'orange'
@@ -215,7 +215,7 @@ export default function OverviewPage() {
                     }`}
                   >
                     <div>
-                      <p className={`font-medium ${
+                      <p className={`text-sm sm:text-base font-medium ${
                         alert.priorityColor === 'red'
                           ? 'text-red-800'
                           : alert.priorityColor === 'orange'
@@ -224,7 +224,7 @@ export default function OverviewPage() {
                       }`}>
                         {alert.name}
                       </p>
-                      <p className={`text-sm ${
+                      <p className={`text-xs sm:text-sm ${
                         alert.priorityColor === 'red'
                           ? 'text-red-600'
                           : alert.priorityColor === 'orange'
@@ -234,7 +234,7 @@ export default function OverviewPage() {
                         {alert.message} • {alert.category}
                       </p>
                     </div>
-                    <span className={`px-2 py-1 text-xs font-medium rounded ${
+                    <span className={`px-2 py-1 text-xs font-medium rounded whitespace-nowrap ${
                       alert.priorityColor === 'red'
                         ? 'bg-red-200 text-red-800'
                         : alert.priorityColor === 'orange'
@@ -246,9 +246,9 @@ export default function OverviewPage() {
                   </div>
                 ))
               ) : (
-                <div className="text-center py-8 text-secondary-gray">
-                  <p>No low stock alerts</p>
-                  <p className="text-sm">All items are above minimum stock levels</p>
+                <div className="text-center py-6 sm:py-8 text-secondary-gray">
+                  <p className="text-sm sm:text-base">No low stock alerts</p>
+                  <p className="text-xs sm:text-sm">All items are above minimum stock levels</p>
                 </div>
               )}
             </div>

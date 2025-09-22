@@ -137,24 +137,24 @@ export default function StockOutPage() {
   return (
     <>
       <ToastContainer toasts={toasts} removeToast={removeToast} />
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Page Header */}
         <div>
-          <h1 className="text-2xl font-bold text-primary-forest">Stock Out</h1>
-          <p className="text-secondary-gray">Remove inventory from existing items</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-primary-forest">Stock Out</h1>
+          <p className="text-sm sm:text-base text-secondary-gray">Remove inventory from existing items</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Stock Out Form */}
           <div className="lg:col-span-2">
-            <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
-              <h2 className="text-xl font-semibold text-primary-forest mb-6">Remove Stock</h2>
+            <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
+              <h2 className="text-lg sm:text-xl font-semibold text-primary-forest mb-4 sm:mb-6">Remove Stock</h2>
               
-              <form onSubmit={handleFormSubmit} className="space-y-6">
+              <form onSubmit={handleFormSubmit} className="space-y-4 sm:space-y-6">
                 {/* Item Selection */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-primary-forest mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">
                       Search & Select Item *
                     </label>
                     <SearchableSelect
@@ -171,7 +171,7 @@ export default function StockOutPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-primary-forest mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">
                       Filter by Category
                     </label>
                     <CustomSelect
@@ -190,9 +190,9 @@ export default function StockOutPage() {
                 </div>
 
                 {selectedItemData && (
-                  <div className="bg-secondary-sage/10 rounded-lg p-4">
-                    <h4 className="font-medium text-primary-forest mb-2">Selected Item Details</h4>
-                    <div className="grid grid-cols-2 gap-4 text-sm">
+                  <div className="bg-secondary-sage/10 rounded-lg p-3 sm:p-4">
+                    <h4 className="font-medium text-primary-forest mb-2 text-sm sm:text-base">Selected Item Details</h4>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-4 text-xs sm:text-sm">
                       <div>
                         <span className="text-secondary-gray">Current Stock:</span>
                         <span className="ml-2 font-medium">{selectedItemData.quantity}</span>
@@ -213,9 +213,9 @@ export default function StockOutPage() {
                   </div>
                 )}
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-primary-forest mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">
                       Quantity to Remove *
                     </label>
                     <input
@@ -225,22 +225,22 @@ export default function StockOutPage() {
                       min="1"
                       max={selectedItemData?.quantity || undefined}
                       required
-                      className="w-full px-4 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent"
+                      className="w-full px-3 sm:px-4 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent text-sm"
                       placeholder="Enter quantity"
                     />
                     {selectedItemData && quantity && parseInt(quantity) > selectedItemData.quantity && (
-                      <p className="text-red-600 text-sm mt-1">
+                      <p className="text-red-600 text-xs sm:text-sm mt-1">
                         Cannot exceed available stock ({selectedItemData.quantity})
                       </p>
                     )}
                     {selectedItemData && quantity && (selectedItemData.quantity - parseInt(quantity)) < selectedItemData.minStock && (
-                      <p className="text-orange-600 text-sm mt-1">
+                      <p className="text-orange-600 text-xs sm:text-sm mt-1">
                         Warning: This will put stock below minimum level ({selectedItemData.minStock})
                       </p>
                     )}
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-primary-forest mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">
                       Reason *
                     </label>
                     <CustomSelect
@@ -263,14 +263,14 @@ export default function StockOutPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-primary-forest mb-2">
+                  <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">
                     Notes (Optional)
                   </label>
                   <textarea
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     rows={3}
-                    className="w-full px-4 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent"
+                    className="w-full px-3 sm:px-4 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent text-sm"
                     placeholder="Additional notes about this stock movement..."
                   />
                 </div>
@@ -278,7 +278,7 @@ export default function StockOutPage() {
                 <button
                   type="submit"
                   disabled={processing || (selectedItemData && parseInt(quantity) > selectedItemData.quantity)}
-                  className="w-full bg-red-600 text-accent-white py-3 rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-red-600 text-accent-white py-2 sm:py-3 rounded-lg hover:bg-red-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                 >
                   {processing ? 'Processing...' : 'Remove Stock'}
                 </button>
@@ -287,25 +287,25 @@ export default function StockOutPage() {
           </div>
 
           {/* Quick Stats */}
-          <div className="space-y-6">
-            <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
-              <h3 className="text-lg font-semibold text-primary-forest mb-4">Quick Stats</h3>
-              <div className="space-y-4">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
+              <h3 className="text-base sm:text-lg font-semibold text-primary-forest mb-3 sm:mb-4">Quick Stats</h3>
+              <div className="space-y-3 sm:space-y-4">
                 <div>
-                  <p className="text-sm text-secondary-gray">Available Items</p>
-                  <p className="text-2xl font-bold text-primary-forest">
+                  <p className="text-xs sm:text-sm text-secondary-gray">Available Items</p>
+                  <p className="text-xl sm:text-2xl font-bold text-primary-forest">
                     {items.filter(item => item.quantity > 0).length}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-secondary-gray">Out of Stock</p>
-                  <p className="text-2xl font-bold text-red-600">
+                  <p className="text-xs sm:text-sm text-secondary-gray">Out of Stock</p>
+                  <p className="text-xl sm:text-2xl font-bold text-red-600">
                     {items.filter(item => item.quantity === 0).length}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-secondary-gray">Low Stock Items</p>
-                  <p className="text-2xl font-bold text-orange-600">
+                  <p className="text-xs sm:text-sm text-secondary-gray">Low Stock Items</p>
+                  <p className="text-xl sm:text-2xl font-bold text-orange-600">
                     {items.filter(item => item.quantity > 0 && item.quantity <= item.minStock).length}
                   </p>
                 </div>
@@ -313,27 +313,27 @@ export default function StockOutPage() {
             </div>
 
             {/* Stock Warnings */}
-            <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
-              <h3 className="text-lg font-semibold text-primary-forest mb-4">Stock Warnings</h3>
-              <div className="space-y-3 max-h-64 overflow-y-auto">
+            <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
+              <h3 className="text-base sm:text-lg font-semibold text-primary-forest mb-3 sm:mb-4">Stock Warnings</h3>
+              <div className="space-y-2 sm:space-y-3 max-h-64 overflow-y-auto">
                 {/* Out of Stock */}
                 {items.filter(item => item.quantity === 0).slice(0, 3).map(item => (
-                  <div key={item.id} className="p-3 bg-red-50 rounded-lg border border-red-200">
-                    <p className="font-medium text-red-800 text-sm">{item.name}</p>
+                  <div key={item.id} className="p-2 sm:p-3 bg-red-50 rounded-lg border border-red-200">
+                    <p className="font-medium text-red-800 text-xs sm:text-sm">{item.name}</p>
                     <p className="text-xs text-red-600">Out of stock</p>
                   </div>
                 ))}
                 
                 {/* Low Stock */}
                 {items.filter(item => item.quantity > 0 && item.quantity <= item.minStock).slice(0, 3).map(item => (
-                  <div key={item.id} className="p-3 bg-orange-50 rounded-lg border border-orange-200">
-                    <p className="font-medium text-orange-800 text-sm">{item.name}</p>
+                  <div key={item.id} className="p-2 sm:p-3 bg-orange-50 rounded-lg border border-orange-200">
+                    <p className="font-medium text-orange-800 text-xs sm:text-sm">{item.name}</p>
                     <p className="text-xs text-orange-600">Low stock: {item.quantity} left</p>
                   </div>
                 ))}
                 
                 {items.filter(item => item.quantity === 0 || (item.quantity > 0 && item.quantity <= item.minStock)).length === 0 && (
-                  <p className="text-sm text-secondary-gray text-center py-4">
+                  <p className="text-xs sm:text-sm text-secondary-gray text-center py-3 sm:py-4">
                     No stock warnings
                   </p>
                 )}

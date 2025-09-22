@@ -125,24 +125,24 @@ export default function StockInPage() {
   return (
     <>
       <ToastContainer toasts={toasts} removeToast={removeToast} />
-      <div className="space-y-6">
+      <div className="space-y-4 sm:space-y-6">
         {/* Page Header */}
         <div>
-          <h1 className="text-2xl font-bold text-primary-forest">Stock In</h1>
-          <p className="text-secondary-gray">Add inventory to existing items</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-primary-forest">Stock In</h1>
+          <p className="text-sm sm:text-base text-secondary-gray">Add inventory to existing items</p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
           {/* Stock In Form */}
           <div className="lg:col-span-2">
-            <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
-              <h2 className="text-xl font-semibold text-primary-forest mb-6">Add Stock</h2>
+            <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
+              <h2 className="text-lg sm:text-xl font-semibold text-primary-forest mb-4 sm:mb-6">Add Stock</h2>
               
-              <form onSubmit={handleFormSubmit} className="space-y-6">
+              <form onSubmit={handleFormSubmit} className="space-y-4 sm:space-y-6">
                 {/* Item Selection */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-primary-forest mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">
                       Search & Select Item *
                     </label>
                     <SearchableSelect
@@ -159,7 +159,7 @@ export default function StockInPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-primary-forest mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">
                       Filter by Category
                     </label>
                     <CustomSelect
@@ -177,9 +177,9 @@ export default function StockInPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
                   <div>
-                    <label className="block text-sm font-medium text-primary-forest mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">
                       Quantity to Add *
                     </label>
                     <input
@@ -188,12 +188,12 @@ export default function StockInPage() {
                       onChange={(e) => setQuantity(e.target.value)}
                       min="1"
                       required
-                      className="w-full px-4 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent"
+                      className="w-full px-3 sm:px-4 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent text-sm"
                       placeholder="Enter quantity"
                     />
                   </div>
                   <div>
-                    <label className="block text-sm font-medium text-primary-forest mb-2">
+                    <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">
                       Reason *
                     </label>
                     <CustomSelect
@@ -214,14 +214,14 @@ export default function StockInPage() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-medium text-primary-forest mb-2">
+                  <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">
                     Notes (Optional)
                   </label>
                   <textarea
                     value={notes}
                     onChange={(e) => setNotes(e.target.value)}
                     rows={3}
-                    className="w-full px-4 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent"
+                    className="w-full px-3 sm:px-4 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent text-sm"
                     placeholder="Additional notes about this stock movement..."
                   />
                 </div>
@@ -229,7 +229,7 @@ export default function StockInPage() {
                 <button
                   type="submit"
                   disabled={processing}
-                  className="w-full bg-primary-forest text-accent-white py-3 rounded-lg hover:bg-secondary-teal transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-primary-forest text-accent-white py-2 sm:py-3 rounded-lg hover:bg-secondary-teal transition-colors disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                 >
                   {processing ? 'Processing...' : 'Add Stock'}
                 </button>
@@ -238,39 +238,39 @@ export default function StockInPage() {
           </div>
 
           {/* Quick Stats */}
-          <div className="space-y-6">
-            <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
-              <h3 className="text-lg font-semibold text-primary-forest mb-4">Quick Stats</h3>
-              <div className="space-y-4">
+          <div className="space-y-4 sm:space-y-6">
+            <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
+              <h3 className="text-base sm:text-lg font-semibold text-primary-forest mb-3 sm:mb-4">Quick Stats</h3>
+              <div className="space-y-3 sm:space-y-4">
                 <div>
-                  <p className="text-sm text-secondary-gray">Total Items</p>
-                  <p className="text-2xl font-bold text-primary-forest">{items.length}</p>
+                  <p className="text-xs sm:text-sm text-secondary-gray">Total Items</p>
+                  <p className="text-xl sm:text-2xl font-bold text-primary-forest">{items.length}</p>
                 </div>
                 <div>
-                  <p className="text-sm text-secondary-gray">Low Stock Items</p>
-                  <p className="text-2xl font-bold text-red-600">
+                  <p className="text-xs sm:text-sm text-secondary-gray">Low Stock Items</p>
+                  <p className="text-xl sm:text-2xl font-bold text-red-600">
                     {items.filter(item => item.quantity <= item.minStock).length}
                   </p>
                 </div>
                 <div>
-                  <p className="text-sm text-secondary-gray">Categories</p>
-                  <p className="text-2xl font-bold text-primary-forest">{categories.length}</p>
+                  <p className="text-xs sm:text-sm text-secondary-gray">Categories</p>
+                  <p className="text-xl sm:text-2xl font-bold text-primary-forest">{categories.length}</p>
                 </div>
               </div>
             </div>
 
             {/* Low Stock Alert */}
-            <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
-              <h3 className="text-lg font-semibold text-primary-forest mb-4">Low Stock Alert</h3>
-              <div className="space-y-3 max-h-64 overflow-y-auto">
+            <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
+              <h3 className="text-base sm:text-lg font-semibold text-primary-forest mb-3 sm:mb-4">Low Stock Alert</h3>
+              <div className="space-y-2 sm:space-y-3 max-h-64 overflow-y-auto">
                 {items.filter(item => item.quantity <= item.minStock).slice(0, 5).map(item => (
-                  <div key={item.id} className="p-3 bg-red-50 rounded-lg border border-red-200">
-                    <p className="font-medium text-red-800 text-sm">{item.name}</p>
+                  <div key={item.id} className="p-2 sm:p-3 bg-red-50 rounded-lg border border-red-200">
+                    <p className="font-medium text-red-800 text-xs sm:text-sm">{item.name}</p>
                     <p className="text-xs text-red-600">Only {item.quantity} left (Min: {item.minStock})</p>
                   </div>
                 ))}
                 {items.filter(item => item.quantity <= item.minStock).length === 0 && (
-                  <p className="text-sm text-secondary-gray text-center py-4">
+                  <p className="text-xs sm:text-sm text-secondary-gray text-center py-3 sm:py-4">
                     No low stock items
                   </p>
                 )}

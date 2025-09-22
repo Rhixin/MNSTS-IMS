@@ -35,18 +35,18 @@ export default function StockChart() {
 
   if (loading) {
     return (
-      <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
-        <h3 className="text-lg font-semibold text-primary-forest mb-4">Stock Overview</h3>
-        <div className="h-64 flex items-center justify-center">
+      <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
+        <h3 className="text-base sm:text-lg font-semibold text-primary-forest mb-3 sm:mb-4">Stock Overview</h3>
+        <div className="h-48 sm:h-64 flex items-center justify-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary-forest"></div>
         </div>
       </div>
     )
   }
   return (
-    <div className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
-      <h3 className="text-lg font-semibold text-primary-forest mb-4">Stock Overview</h3>
-      <div className="h-64">
+    <div className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
+      <h3 className="text-base sm:text-lg font-semibold text-primary-forest mb-3 sm:mb-4">Stock Overview</h3>
+      <div className="h-48 sm:h-64">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data}>
             <CartesianGrid strokeDasharray="3 3" stroke="#E5E7EB" />

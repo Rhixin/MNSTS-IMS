@@ -141,22 +141,22 @@ export default function StockHistoryPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
       {/* Page Header */}
       <div>
-        <h1 className="text-2xl font-bold text-primary-forest">Stock Movement History</h1>
-        <p className="text-secondary-gray">Track all inventory movements and transactions</p>
+        <h1 className="text-xl sm:text-2xl font-bold text-primary-forest">Stock Movement History</h1>
+        <p className="text-sm sm:text-base text-secondary-gray">Track all inventory movements and transactions</p>
       </div>
 
       {/* Filters */}
-      <div className="bg-accent-white rounded-xl shadow-sm border border-secondary-sage/10 p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
+      <div className="bg-accent-white rounded-xl shadow-sm border border-secondary-sage/10 p-4 sm:p-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
             <div>
-              <label className="block text-sm font-medium text-primary-forest mb-2">Type</label>
+              <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">Type</label>
               <select
                 value={filters.type}
                 onChange={(e) => setFilters(prev => ({ ...prev, type: e.target.value }))}
-                className="w-full px-3 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent"
+                className="w-full px-3 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent text-sm"
               >
                 <option value="">All Types</option>
                 {MOVEMENT_TYPES.map(type => (
@@ -166,11 +166,11 @@ export default function StockHistoryPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-primary-forest mb-2">Item</label>
+              <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">Item</label>
               <select
                 value={filters.itemId}
                 onChange={(e) => setFilters(prev => ({ ...prev, itemId: e.target.value }))}
-                className="w-full px-3 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent"
+                className="w-full px-3 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent text-sm"
               >
                 <option value="">All Items</option>
                 {items.map(item => (
@@ -180,29 +180,29 @@ export default function StockHistoryPage() {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-primary-forest mb-2">From Date</label>
+              <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">From Date</label>
               <input
                 type="date"
                 value={filters.dateFrom}
                 onChange={(e) => setFilters(prev => ({ ...prev, dateFrom: e.target.value }))}
-                className="w-full px-3 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent"
+                className="w-full px-3 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent text-sm"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-primary-forest mb-2">To Date</label>
+              <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">To Date</label>
               <input
                 type="date"
                 value={filters.dateTo}
                 onChange={(e) => setFilters(prev => ({ ...prev, dateTo: e.target.value }))}
-                className="w-full px-3 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent"
+                className="w-full px-3 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent text-sm"
               />
             </div>
 
             <div className="flex items-end">
               <button
                 onClick={resetFilters}
-                className="w-full bg-secondary-gray text-accent-white px-4 py-2 rounded-lg hover:bg-accent-charcoal transition-colors"
+                className="w-full bg-secondary-gray text-accent-white px-3 sm:px-4 py-2 rounded-lg hover:bg-accent-charcoal transition-colors text-sm sm:text-base"
               >
                 Reset
               </button>
@@ -211,19 +211,19 @@ export default function StockHistoryPage() {
         </div>
 
       {/* Movement Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
         {MOVEMENT_TYPES.map(type => {
           const count = movements.filter(m => m.type === type.value).length
           const Icon = type.icon
           return (
-            <div key={type.value} className="bg-accent-white rounded-xl shadow-sm p-6 border border-secondary-sage/10">
+            <div key={type.value} className="bg-accent-white rounded-xl shadow-sm p-4 sm:p-6 border border-secondary-sage/10">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-secondary-gray">{type.label}</p>
-                  <p className="text-2xl font-bold text-primary-forest">{count}</p>
+                  <p className="text-xs sm:text-sm font-medium text-secondary-gray">{type.label}</p>
+                  <p className="text-xl sm:text-2xl font-bold text-primary-forest">{count}</p>
                 </div>
-                <div className={`p-3 rounded-lg ${type.color} bg-opacity-10`}>
-                  <Icon className={`w-6 h-6 ${type.color}`} />
+                <div className={`p-2 sm:p-3 rounded-lg ${type.color} bg-opacity-10 flex-shrink-0`}>
+                  <Icon className={`w-5 h-5 sm:w-6 sm:h-6 ${type.color}`} />
                 </div>
               </div>
             </div>
@@ -237,10 +237,10 @@ export default function StockHistoryPage() {
       ) : (
         <div className="bg-accent-white rounded-xl shadow-sm border border-secondary-sage/10">
           {movements.length === 0 ? (
-          <div className="text-center py-12">
-            <ArrowsRightLeftIcon className="w-16 h-16 text-secondary-gray/50 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-secondary-gray mb-2">No movements found</h3>
-            <p className="text-secondary-gray">Try adjusting your filters or check back later</p>
+          <div className="text-center py-8 sm:py-12">
+            <ArrowsRightLeftIcon className="w-12 h-12 sm:w-16 sm:h-16 text-secondary-gray/50 mx-auto mb-3 sm:mb-4" />
+            <h3 className="text-base sm:text-lg font-medium text-secondary-gray mb-2">No movements found</h3>
+            <p className="text-sm sm:text-base text-secondary-gray">Try adjusting your filters or check back later</p>
           </div>
         ) : (
           <>
@@ -248,12 +248,12 @@ export default function StockHistoryPage() {
               <table className="w-full">
                 <thead className="bg-primary-cream/50 border-b border-secondary-sage/20">
                   <tr>
-                    <th className="text-left py-4 px-6 font-semibold text-primary-forest">Type</th>
-                    <th className="text-left py-4 px-6 font-semibold text-primary-forest">Item</th>
-                    <th className="text-left py-4 px-6 font-semibold text-primary-forest">Quantity</th>
-                    <th className="text-left py-4 px-6 font-semibold text-primary-forest">Reason</th>
-                    <th className="text-left py-4 px-6 font-semibold text-primary-forest">User</th>
-                    <th className="text-left py-4 px-6 font-semibold text-primary-forest">Date</th>
+                    <th className="text-left py-3 sm:py-4 px-3 sm:px-6 font-semibold text-primary-forest text-sm sm:text-base">Type</th>
+                    <th className="text-left py-3 sm:py-4 px-3 sm:px-6 font-semibold text-primary-forest text-sm sm:text-base">Item</th>
+                    <th className="text-left py-3 sm:py-4 px-3 sm:px-6 font-semibold text-primary-forest text-sm sm:text-base">Quantity</th>
+                    <th className="text-left py-3 sm:py-4 px-3 sm:px-6 font-semibold text-primary-forest text-sm sm:text-base hidden md:table-cell">Reason</th>
+                    <th className="text-left py-3 sm:py-4 px-3 sm:px-6 font-semibold text-primary-forest text-sm sm:text-base hidden lg:table-cell">User</th>
+                    <th className="text-left py-3 sm:py-4 px-3 sm:px-6 font-semibold text-primary-forest text-sm sm:text-base">Date</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-secondary-sage/10">
@@ -262,51 +262,51 @@ export default function StockHistoryPage() {
                     const Icon = typeInfo.icon
                     return (
                       <tr key={movement.id} className="hover:bg-primary-cream/20 transition-colors">
-                        <td className="py-4 px-6">
-                          <div className="flex items-center space-x-3">
-                            <div className={`p-2 rounded-lg ${typeInfo.color} bg-opacity-10`}>
-                              <Icon className={`w-4 h-4 ${typeInfo.color}`} />
+                        <td className="py-3 sm:py-4 px-3 sm:px-6">
+                          <div className="flex items-center space-x-2 sm:space-x-3">
+                            <div className={`p-1.5 sm:p-2 rounded-lg ${typeInfo.color} bg-opacity-10`}>
+                              <Icon className={`w-3 h-3 sm:w-4 sm:h-4 ${typeInfo.color}`} />
                             </div>
-                            <span className="font-medium text-primary-forest">{typeInfo.label}</span>
+                            <span className="font-medium text-primary-forest text-xs sm:text-sm">{typeInfo.label}</span>
                           </div>
                         </td>
-                        <td className="py-4 px-6">
+                        <td className="py-3 sm:py-4 px-3 sm:px-6">
                           <div>
-                            <p className="font-medium text-primary-forest">{movement.item.name}</p>
-                            <p className="text-sm text-secondary-gray">SKU: {movement.item.sku}</p>
+                            <p className="font-medium text-primary-forest text-xs sm:text-sm">{movement.item.name}</p>
+                            <p className="text-xs text-secondary-gray">SKU: {movement.item.sku}</p>
                             <div className="flex items-center mt-1">
-                              <div 
-                                className="w-3 h-3 rounded-full mr-2"
+                              <div
+                                className="w-2 h-2 sm:w-3 sm:h-3 rounded-full mr-1 sm:mr-2"
                                 style={{ backgroundColor: movement.item.category.color }}
                               ></div>
                               <span className="text-xs text-secondary-gray">{movement.item.category.name}</span>
                             </div>
                           </div>
                         </td>
-                        <td className="py-4 px-6">
-                          <span className={`font-semibold ${
-                            movement.type === 'IN' || movement.type === 'ADJUSTMENT' 
-                              ? 'text-green-600' 
+                        <td className="py-3 sm:py-4 px-3 sm:px-6">
+                          <span className={`font-semibold text-sm sm:text-base ${
+                            movement.type === 'IN' || movement.type === 'ADJUSTMENT'
+                              ? 'text-green-600'
                               : 'text-red-600'
                           }`}>
                             {movement.type === 'IN' || movement.type === 'ADJUSTMENT' ? '+' : '-'}{movement.quantity}
                           </span>
                         </td>
-                        <td className="py-4 px-6">
+                        <td className="py-3 sm:py-4 px-3 sm:px-6 hidden md:table-cell">
                           <div>
-                            <p className="text-primary-forest">{movement.reason}</p>
+                            <p className="text-primary-forest text-xs sm:text-sm">{movement.reason}</p>
                             {movement.notes && (
-                              <p className="text-sm text-secondary-gray mt-1">{movement.notes}</p>
+                              <p className="text-xs text-secondary-gray mt-1">{movement.notes}</p>
                             )}
                           </div>
                         </td>
-                        <td className="py-4 px-6">
-                          <span className="text-primary-forest">
+                        <td className="py-3 sm:py-4 px-3 sm:px-6 hidden lg:table-cell">
+                          <span className="text-primary-forest text-xs sm:text-sm">
                             {movement.user.firstName} {movement.user.lastName}
                           </span>
                         </td>
-                        <td className="py-4 px-6">
-                          <span className="text-secondary-gray">{formatDate(movement.createdAt)}</span>
+                        <td className="py-3 sm:py-4 px-3 sm:px-6">
+                          <span className="text-secondary-gray text-xs sm:text-sm">{formatDate(movement.createdAt)}</span>
                         </td>
                       </tr>
                     )
@@ -317,24 +317,24 @@ export default function StockHistoryPage() {
 
             {/* Pagination */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-between px-6 py-4 border-t border-secondary-sage/10">
-                <div className="text-sm text-secondary-gray">
+              <div className="flex items-center justify-between px-3 sm:px-6 py-3 sm:py-4 border-t border-secondary-sage/10">
+                <div className="text-xs sm:text-sm text-secondary-gray">
                   Page {currentPage} of {totalPages}
                 </div>
-                <div className="flex items-center space-x-2">
+                <div className="flex items-center space-x-1 sm:space-x-2">
                   <button
                     onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
                     disabled={currentPage === 1}
-                    className="p-2 text-secondary-gray hover:text-primary-forest disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="p-1.5 sm:p-2 text-secondary-gray hover:text-primary-forest disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <ChevronLeftIcon className="w-5 h-5" />
+                    <ChevronLeftIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                   <button
                     onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
                     disabled={currentPage === totalPages}
-                    className="p-2 text-secondary-gray hover:text-primary-forest disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="p-1.5 sm:p-2 text-secondary-gray hover:text-primary-forest disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    <ChevronRightIcon className="w-5 h-5" />
+                    <ChevronRightIcon className="w-4 h-4 sm:w-5 sm:h-5" />
                   </button>
                 </div>
               </div>

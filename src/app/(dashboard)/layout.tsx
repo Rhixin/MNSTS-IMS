@@ -69,26 +69,29 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top header */}
         <header className="bg-accent-white shadow-sm border-b border-secondary-sage/20 lg:pl-0">
-          <div className="flex items-center justify-between h-16 px-4">
+          <div className="flex items-center justify-between h-14 sm:h-16 px-3 sm:px-4">
             <div className="flex items-center">
               <button
                 onClick={toggleSidebar}
-                className="lg:hidden text-primary-forest hover:text-secondary-teal transition-colors mr-4"
+                className="lg:hidden text-primary-forest hover:text-secondary-teal transition-colors mr-3 sm:mr-4"
               >
-                <Bars3Icon className="w-6 h-6" />
+                <Bars3Icon className="w-5 h-5 sm:w-6 sm:h-6" />
               </button>
-              <h2 className="text-lg font-semibold text-primary-forest lg:hidden">
+              <h2 className="text-base sm:text-lg font-semibold text-primary-forest lg:hidden">
                 MNSTS IMS
               </h2>
             </div>
-            
-            <div className="flex items-center space-x-4">
-              <span className="text-secondary-gray text-sm">
+
+            <div className="flex items-center space-x-2 sm:space-x-4">
+              <span className="hidden sm:inline text-secondary-gray text-xs sm:text-sm">
                 Welcome, {user?.firstName} {user?.lastName}
+              </span>
+              <span className="sm:hidden text-secondary-gray text-xs">
+                {user?.firstName}
               </span>
               <button
                 onClick={handleLogout}
-                className="bg-primary-forest text-accent-white px-4 py-2 rounded-lg hover:bg-secondary-teal transition-colors text-sm"
+                className="bg-primary-forest text-accent-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg hover:bg-secondary-teal transition-colors text-xs sm:text-sm"
               >
                 Logout
               </button>
@@ -98,7 +101,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
         {/* Main content - This is where child pages render */}
         <main className="flex-1 overflow-x-hidden overflow-y-auto bg-primary-cream">
-          <div className="p-6">
+          <div className="p-3 sm:p-4 lg:p-6">
             {children}
           </div>
         </main>

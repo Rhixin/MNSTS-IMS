@@ -192,22 +192,22 @@ export default function CategoriesPage() {
     return (
       <>
         <ToastContainer toasts={toasts} removeToast={removeToast} />
-        <div className="space-y-6">
+        <div className="space-y-4 sm:space-y-6">
           {/* Page Header */}
-          <div className="flex justify-between items-start">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start space-y-3 sm:space-y-0">
             <div>
-              <h1 className="text-2xl font-bold text-primary-forest">
+              <h1 className="text-xl sm:text-2xl font-bold text-primary-forest">
                 Category Management
               </h1>
-              <p className="text-secondary-gray">
+              <p className="text-sm sm:text-base text-secondary-gray">
                 Organize your inventory with categories
               </p>
             </div>
             <button
               disabled
-              className="bg-gray-300 text-gray-500 px-6 py-3 rounded-lg flex items-center space-x-2 cursor-not-allowed"
+              className="bg-gray-300 text-gray-500 px-4 sm:px-6 py-2 sm:py-3 rounded-lg flex items-center justify-center space-x-2 cursor-not-allowed text-sm sm:text-base"
             >
-              <PlusIcon className="w-5 h-5" />
+              <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5" />
               <span>Add Category</span>
             </button>
           </div>
@@ -222,43 +222,43 @@ export default function CategoriesPage() {
       <ToastContainer toasts={toasts} removeToast={removeToast} />
       <div className="space-y-6">
         {/* Page Header */}
-        <div className="flex justify-between items-start">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start space-y-3 sm:space-y-0">
           <div>
-            <h1 className="text-2xl font-bold text-primary-forest">
+            <h1 className="text-xl sm:text-2xl font-bold text-primary-forest">
               Category Management
             </h1>
-            <p className="text-secondary-gray">
+            <p className="text-sm sm:text-base text-secondary-gray">
               Organize your inventory with categories
             </p>
           </div>
           <button
             onClick={() => setShowForm(true)}
-            className="bg-primary-forest text-accent-white px-6 py-3 rounded-lg hover:bg-secondary-teal transition-colors flex items-center space-x-2"
+            className="bg-primary-forest text-accent-white px-4 sm:px-6 py-2 sm:py-3 rounded-lg hover:bg-secondary-teal transition-colors flex items-center justify-center space-x-2 text-sm sm:text-base"
           >
-            <PlusIcon className="w-5 h-5" />
+            <PlusIcon className="w-4 h-4 sm:w-5 sm:h-5" />
             <span>Add Category</span>
           </button>
         </div>
 
         {/* Categories Grid */}
         {categories.length === 0 ? (
-          <div className="text-center py-12">
-            <TagIcon className="w-16 h-16 text-secondary-gray/50 mx-auto mb-4" />
-            <h3 className="text-lg font-medium text-secondary-gray mb-2">
+          <div className="text-center py-8 sm:py-12">
+            <TagIcon className="w-12 h-12 sm:w-16 sm:h-16 text-secondary-gray/50 mx-auto mb-3 sm:mb-4" />
+            <h3 className="text-base sm:text-lg font-medium text-secondary-gray mb-2">
               No categories yet
             </h3>
-            <p className="text-secondary-gray mb-4">
+            <p className="text-sm sm:text-base text-secondary-gray mb-3 sm:mb-4">
               Create your first category to organize inventory items
             </p>
             <button
               onClick={() => setShowForm(true)}
-              className="bg-primary-forest text-accent-white px-6 py-2 rounded-lg hover:bg-secondary-teal transition-colors"
+              className="bg-primary-forest text-accent-white px-4 sm:px-6 py-2 rounded-lg hover:bg-secondary-teal transition-colors text-sm sm:text-base"
             >
               Create First Category
             </button>
           </div>
         ) : (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 sm:gap-6">
             {categories.map((category) => {
               const itemCount = itemCounts[category.id] || 0;
               const hasItems = itemCount > 0;
@@ -456,7 +456,7 @@ export default function CategoriesPage() {
                       Category Color
                     </label>
 
-                    <div className="space-y-6">
+                    <div className="space-y-4 sm:space-y-6">
                       {/* Color Preview */}
                       <div className="flex items-center space-x-4 p-4 bg-gray-50 rounded-lg border border-secondary-gray">
                         <div

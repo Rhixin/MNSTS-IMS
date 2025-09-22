@@ -299,7 +299,7 @@ export default function ReportsPage() {
     switch (selectedReport) {
       case 'INVENTORY_SUMMARY':
         return (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {/* Summary Cards */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="bg-accent-white rounded-lg p-6 border border-secondary-sage/10">
@@ -454,7 +454,7 @@ export default function ReportsPage() {
 
       case 'STOCK_MOVEMENT':
         return (
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             <div className="bg-accent-white rounded-lg p-6 border border-secondary-sage/10">
               <h3 className="text-lg font-semibold text-primary-forest mb-4">Stock Movement Report</h3>
               <p className="text-sm text-secondary-gray mb-4">
@@ -569,57 +569,57 @@ export default function ReportsPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-4 sm:space-y-6">
         {/* Page Header */}
         <div>
-          <h1 className="text-2xl font-bold text-primary-forest">Reports & Analytics</h1>
-          <p className="text-secondary-gray">Generate and view detailed reports</p>
+          <h1 className="text-xl sm:text-2xl font-bold text-primary-forest">Reports & Analytics</h1>
+          <p className="text-sm sm:text-base text-secondary-gray">Generate and view detailed reports</p>
         </div>
 
         {/* Report Type Selection */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           {reportTypes.map(report => {
             const Icon = report.icon
             return (
               <button
                 key={report.type}
                 onClick={() => setSelectedReport(report.type)}
-                className={`p-4 rounded-lg border-2 transition-all text-left ${
+                className={`p-3 sm:p-4 rounded-lg border-2 transition-all text-left ${
                   selectedReport === report.type
                     ? 'border-primary-forest bg-primary-forest/5'
                     : 'border-secondary-sage/20 hover:border-primary-forest/50'
                 }`}
               >
-                <div className={`w-8 h-8 rounded-lg flex items-center justify-center mb-3 ${report.color}`}>
-                  <Icon className="w-5 h-5 text-white" />
+                <div className={`w-6 h-6 sm:w-8 sm:h-8 rounded-lg flex items-center justify-center mb-2 sm:mb-3 ${report.color}`}>
+                  <Icon className="w-3 h-3 sm:w-5 sm:h-5 text-white" />
                 </div>
-                <h3 className="font-semibold text-primary-forest mb-1">{report.name}</h3>
-                <p className="text-sm text-secondary-gray">{report.description}</p>
+                <h3 className="font-semibold text-primary-forest mb-1 text-sm sm:text-base">{report.name}</h3>
+                <p className="text-xs sm:text-sm text-secondary-gray">{report.description}</p>
               </button>
             )
           })}
         </div>
 
         {/* Report Controls */}
-        <div className="bg-accent-white rounded-lg p-6 border border-secondary-sage/10">
-          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
-            <div className="flex flex-col sm:flex-row gap-4">
+        <div className="bg-accent-white rounded-lg p-4 sm:p-6 border border-secondary-sage/10">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-3 sm:gap-4">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
               <div>
-                <label className="block text-sm font-medium text-primary-forest mb-2">From Date</label>
+                <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">From Date</label>
                 <input
                   type="date"
                   value={dateRange.from}
                   onChange={(e) => setDateRange(prev => ({ ...prev, from: e.target.value }))}
-                  className="px-4 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent"
+                  className="px-3 sm:px-4 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent text-sm"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-primary-forest mb-2">To Date</label>
+                <label className="block text-xs sm:text-sm font-medium text-primary-forest mb-2">To Date</label>
                 <input
                   type="date"
                   value={dateRange.to}
                   onChange={(e) => setDateRange(prev => ({ ...prev, to: e.target.value }))}
-                  className="px-4 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent"
+                  className="px-3 sm:px-4 py-2 border border-secondary-gray rounded-lg focus:ring-2 focus:ring-primary-forest focus:border-transparent text-sm"
                 />
               </div>
               <div className="flex items-end">
@@ -633,20 +633,20 @@ export default function ReportsPage() {
                 </div>
               </div>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <button
                 onClick={generateReport}
                 disabled={loading}
-                className="bg-primary-forest text-white px-6 py-2 rounded-lg hover:bg-secondary-teal transition-colors disabled:opacity-50"
+                className="bg-primary-forest text-white px-4 sm:px-6 py-2 rounded-lg hover:bg-secondary-teal transition-colors disabled:opacity-50 text-sm sm:text-base"
               >
                 {loading ? 'Generating...' : 'Generate Report'}
               </button>
               <button
                 onClick={exportReport}
                 disabled={!reportData}
-                className="bg-primary-golden text-primary-forest px-6 py-2 rounded-lg hover:bg-accent-lightGold transition-colors disabled:opacity-50 flex items-center gap-2"
+                className="bg-primary-golden text-primary-forest px-4 sm:px-6 py-2 rounded-lg hover:bg-accent-lightGold transition-colors disabled:opacity-50 flex items-center justify-center gap-2 text-sm sm:text-base"
               >
-                <DocumentArrowDownIcon className="w-4 h-4" />
+                <DocumentArrowDownIcon className="w-3 h-3 sm:w-4 sm:h-4" />
                 Export
               </button>
             </div>
