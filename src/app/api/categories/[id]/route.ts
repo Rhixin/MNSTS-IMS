@@ -134,15 +134,11 @@ export async function DELETE(request: NextRequest, { params }: { params: Promise
     }
 
     // Set categoryId to null for inactive items before deleting the category
-    await prisma.inventoryItem.updateMany({
-      where: {
-        categoryId: categoryId,
-        isActive: false
-      },
-      data: {
-        categoryId: { set: null }
-      }
-    })
+    await prisma.$executeRaw`
+      UPDATE "inventory_items"
+      SET "categoryId" = NULL
+      WHERE "categoryId" = ${categoryId} AND "isActive" = false
+    `
 
     await prisma.category.delete({
       where: { id: categoryId }
