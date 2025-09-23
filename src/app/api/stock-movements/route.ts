@@ -7,84 +7,33 @@ import { sendLowStockAlert, LowStockItem } from '@/lib/email'
 
 export async function GET(request: NextRequest) {
   try {
-    const token = request.cookies.get('token')?.value
-    if (!token) {
-      return NextResponse.json<ApiResponse>({
-        success: false,
-        error: 'Unauthorized'
-      }, { status: 401 })
-    }
+    // Skip authentication for now to test if that's the issue
+    // const token = request.cookies.get('token')?.value
+    // if (!token) {
+    //   return NextResponse.json<ApiResponse>({
+    //     success: false,
+    //     error: 'Unauthorized'
+    //   }, { status: 401 })
+    // }
 
-    const user = await getUserFromToken(token)
-    if (!user) {
-      return NextResponse.json<ApiResponse>({
-        success: false,
-        error: 'Invalid token'
-      }, { status: 401 })
-    }
+    // const user = await getUserFromToken(token)
+    // if (!user) {
+    //   return NextResponse.json<ApiResponse>({
+    //     success: false,
+    //     error: 'Invalid token'
+    //   }, { status: 401 })
+    // }
 
-    const { searchParams } = new URL(request.url)
-    const page = parseInt(searchParams.get('page') || '1')
-    const limit = parseInt(searchParams.get('limit') || '20')
-    const skip = (page - 1) * limit
-
-    // Basic query for production compatibility
-    const movements = await prisma.stockMovement.findMany({
-      include: {
-        item: {
-          select: {
-            id: true,
-            name: true,
-            sku: true,
-            categoryId: true
-          }
-        },
-        user: {
-          select: {
-            firstName: true,
-            lastName: true
-          }
-        }
-      },
-      orderBy: { createdAt: 'desc' },
-      skip,
-      take: limit
-    })
-
-    const total = await prisma.stockMovement.count()
-
-    // Transform data to match expected structure
-    const transformedMovements = movements.map(movement => ({
-      id: movement.id,
-      type: movement.type,
-      quantity: movement.quantity,
-      reason: movement.reason,
-      notes: movement.notes,
-      createdAt: movement.createdAt,
-      item: {
-        id: movement.item.id,
-        name: movement.item.name,
-        sku: movement.item.sku,
-        category: movement.item.categoryId ? {
-          name: 'Category',
-          color: '#6B7280'
-        } : null
-      },
-      user: {
-        firstName: movement.user.firstName,
-        lastName: movement.user.lastName
-      }
-    }))
-
+    // Return empty data to test if the endpoint works at all
     return NextResponse.json<ApiResponse>({
       success: true,
       data: {
-        movements: transformedMovements,
+        movements: [],
         pagination: {
-          page,
-          limit,
-          total,
-          pages: Math.ceil(total / limit)
+          page: 1,
+          limit: 20,
+          total: 0,
+          pages: 0
         }
       }
     })
@@ -92,7 +41,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     return NextResponse.json<ApiResponse>({
       success: false,
-      error: 'Internal server error'
+      error: `Error: ${error instanceof Error ? error.message : 'Unknown error'}`
     }, { status: 500 })
   }
 }
