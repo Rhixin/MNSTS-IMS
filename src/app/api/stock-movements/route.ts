@@ -28,7 +28,7 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '20')
     const skip = (page - 1) * limit
 
-    // Try simple database query
+    // Get stock movements with basic data
     const movements = await prisma.stockMovement.findMany({
       orderBy: { createdAt: 'desc' },
       skip,
@@ -37,28 +37,75 @@ export async function GET(request: NextRequest) {
 
     const total = await prisma.stockMovement.count()
 
-    // Transform data without complex includes
-    const transformedMovements = movements.map(movement => ({
-      id: movement.id,
-      type: movement.type,
-      quantity: movement.quantity,
-      reason: movement.reason || '',
-      notes: movement.notes || '',
-      createdAt: movement.createdAt,
-      item: {
-        id: movement.itemId,
-        name: 'Item Name',
-        sku: 'SKU',
-        category: {
-          name: 'Category',
-          color: '#6B7280'
+    // Get unique item IDs and user IDs
+    const itemIds = [...new Set(movements.map(m => m.itemId))]
+    const userIds = [...new Set(movements.map(m => m.userId))]
+
+    // Fetch items and users separately to avoid complex joins
+    const [items, users] = await Promise.all([
+      prisma.inventoryItem.findMany({
+        where: { id: { in: itemIds } },
+        select: {
+          id: true,
+          name: true,
+          sku: true,
+          categoryId: true
         }
-      },
-      user: {
-        firstName: 'User',
-        lastName: 'Name'
+      }),
+      prisma.user.findMany({
+        where: { id: { in: userIds } },
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true
+        }
+      })
+    ])
+
+    // Get unique category IDs and fetch categories
+    const categoryIds = [...new Set(items.map(i => i.categoryId).filter(Boolean))]
+    const categories = await prisma.category.findMany({
+      where: { id: { in: categoryIds } },
+      select: {
+        id: true,
+        name: true,
+        color: true
       }
-    }))
+    })
+
+    // Create lookup maps for better performance
+    const itemMap = new Map(items.map(item => [item.id, item]))
+    const userMap = new Map(users.map(user => [user.id, user]))
+    const categoryMap = new Map(categories.map(cat => [cat.id, cat]))
+
+    // Transform data with real information
+    const transformedMovements = movements.map(movement => {
+      const item = itemMap.get(movement.itemId)
+      const user = userMap.get(movement.userId)
+      const category = item?.categoryId ? categoryMap.get(item.categoryId) : null
+
+      return {
+        id: movement.id,
+        type: movement.type,
+        quantity: movement.quantity,
+        reason: movement.reason || '',
+        notes: movement.notes || '',
+        createdAt: movement.createdAt,
+        item: {
+          id: movement.itemId,
+          name: item?.name || 'Unknown Item',
+          sku: item?.sku || 'Unknown SKU',
+          category: category ? {
+            name: category.name,
+            color: category.color
+          } : null
+        },
+        user: {
+          firstName: user?.firstName || 'Unknown',
+          lastName: user?.lastName || 'User'
+        }
+      }
+    })
 
     return NextResponse.json<ApiResponse>({
       success: true,
