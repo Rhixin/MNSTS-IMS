@@ -34,22 +34,35 @@ export async function GET(request: NextRequest) {
 
     const skip = (page - 1) * limit
 
-    const where = {
-      ...(itemId && { itemId }),
-      ...(type && { type }),
-      ...(reason && {
-        reason: {
-          contains: reason,
-          mode: 'insensitive' as const
-        }
-      }),
-      ...(dateFrom || dateTo) && {
-        createdAt: {
-          ...(dateFrom && { gte: new Date(dateFrom) }),
-          ...(dateTo && { lte: new Date(dateTo + 'T23:59:59.999Z') })
-        }
+    const where: any = {}
+
+    if (itemId) {
+      where.itemId = itemId
+    }
+
+    if (type) {
+      where.type = type
+    }
+
+    if (reason) {
+      where.reason = {
+        contains: reason,
+        mode: 'insensitive' as const
       }
     }
+
+    if (dateFrom || dateTo) {
+      where.createdAt = {}
+      if (dateFrom) {
+        where.createdAt.gte = new Date(dateFrom)
+      }
+      if (dateTo) {
+        where.createdAt.lte = new Date(dateTo + 'T23:59:59.999Z')
+      }
+    }
+
+    console.log('Stock movements API - where clause:', JSON.stringify(where, null, 2))
+    console.log('Stock movements API - pagination:', { page, limit, skip })
 
     const [movements, total] = await Promise.all([
       prisma.stockMovement.findMany({
@@ -73,6 +86,16 @@ export async function GET(request: NextRequest) {
       }),
       prisma.stockMovement.count({ where })
     ])
+
+    console.log('Stock movements API - results:', {
+      movementsCount: movements.length,
+      total,
+      firstMovement: movements[0] ? {
+        id: movements[0].id,
+        type: movements[0].type,
+        itemName: movements[0].item.name
+      } : null
+    })
 
     return NextResponse.json<ApiResponse>({
       success: true,

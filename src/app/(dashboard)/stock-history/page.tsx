@@ -86,13 +86,21 @@ export default function StockHistoryPage() {
         ...(filters.dateTo && { dateTo: filters.dateTo })
       })
 
+      console.log('Fetching movements with params:', params.toString())
       const response = await fetch(`/api/stock-movements?${params}`)
       if (response.ok) {
         const result = await response.json()
+        console.log('Stock movements API response:', result)
         if (result.success) {
           setMovements(result.data.movements)
           setTotalPages(result.data.pagination.pages)
+        } else {
+          console.error('API returned error:', result.error)
         }
+      } else {
+        console.error('API request failed:', response.status, response.statusText)
+        const errorResult = await response.json().catch(() => null)
+        console.error('Error details:', errorResult)
       }
     } catch (error) {
       console.error('Error fetching movements:', error)
