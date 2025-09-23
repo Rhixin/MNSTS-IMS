@@ -28,12 +28,27 @@ export async function GET(request: NextRequest) {
     const limit = parseInt(searchParams.get('limit') || '10')
     const itemId = searchParams.get('itemId')
     const type = searchParams.get('type') as MovementType | null
+    const reason = searchParams.get('reason')
+    const dateFrom = searchParams.get('dateFrom')
+    const dateTo = searchParams.get('dateTo')
 
     const skip = (page - 1) * limit
 
     const where = {
       ...(itemId && { itemId }),
-      ...(type && { type })
+      ...(type && { type }),
+      ...(reason && {
+        reason: {
+          contains: reason,
+          mode: 'insensitive' as const
+        }
+      }),
+      ...(dateFrom || dateTo) && {
+        createdAt: {
+          ...(dateFrom && { gte: new Date(dateFrom) }),
+          ...(dateTo && { lte: new Date(dateTo + 'T23:59:59.999Z') })
+        }
+      }
     }
 
     const [movements, total] = await Promise.all([
@@ -193,7 +208,7 @@ export async function POST(request: NextRequest) {
             c.name as "categoryName",
             c.color as "categoryColor"
           FROM inventory_items i
-          JOIN categories c ON i."categoryId" = c.id
+          LEFT JOIN categories c ON i."categoryId" = c.id
           WHERE i.quantity <= i."minStock"
           AND i."isActive" = true
         ` as any[]
@@ -203,7 +218,7 @@ export async function POST(request: NextRequest) {
           const lowStockData: LowStockItem[] = lowStockItems.map(item => ({
             name: item.name,
             sku: item.sku,
-            category: item.categoryName,
+            category: item.categoryName || 'No category',
             currentStock: item.quantity,
             minStock: item.minStock,
             shortage: Math.max(0, item.minStock - item.quantity)
