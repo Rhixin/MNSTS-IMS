@@ -7,33 +7,68 @@ import { sendLowStockAlert, LowStockItem } from '@/lib/email'
 
 export async function GET(request: NextRequest) {
   try {
-    // Skip authentication for now to test if that's the issue
-    // const token = request.cookies.get('token')?.value
-    // if (!token) {
-    //   return NextResponse.json<ApiResponse>({
-    //     success: false,
-    //     error: 'Unauthorized'
-    //   }, { status: 401 })
-    // }
+    const token = request.cookies.get('token')?.value
+    if (!token) {
+      return NextResponse.json<ApiResponse>({
+        success: false,
+        error: 'Unauthorized'
+      }, { status: 401 })
+    }
 
-    // const user = await getUserFromToken(token)
-    // if (!user) {
-    //   return NextResponse.json<ApiResponse>({
-    //     success: false,
-    //     error: 'Invalid token'
-    //   }, { status: 401 })
-    // }
+    const user = await getUserFromToken(token)
+    if (!user) {
+      return NextResponse.json<ApiResponse>({
+        success: false,
+        error: 'Invalid token'
+      }, { status: 401 })
+    }
 
-    // Return empty data to test if the endpoint works at all
+    const { searchParams } = new URL(request.url)
+    const page = parseInt(searchParams.get('page') || '1')
+    const limit = parseInt(searchParams.get('limit') || '20')
+    const skip = (page - 1) * limit
+
+    // Try simple database query
+    const movements = await prisma.stockMovement.findMany({
+      orderBy: { createdAt: 'desc' },
+      skip,
+      take: limit
+    })
+
+    const total = await prisma.stockMovement.count()
+
+    // Transform data without complex includes
+    const transformedMovements = movements.map(movement => ({
+      id: movement.id,
+      type: movement.type,
+      quantity: movement.quantity,
+      reason: movement.reason || '',
+      notes: movement.notes || '',
+      createdAt: movement.createdAt,
+      item: {
+        id: movement.itemId,
+        name: 'Item Name',
+        sku: 'SKU',
+        category: {
+          name: 'Category',
+          color: '#6B7280'
+        }
+      },
+      user: {
+        firstName: 'User',
+        lastName: 'Name'
+      }
+    }))
+
     return NextResponse.json<ApiResponse>({
       success: true,
       data: {
-        movements: [],
+        movements: transformedMovements,
         pagination: {
-          page: 1,
-          limit: 20,
-          total: 0,
-          pages: 0
+          page,
+          limit,
+          total,
+          pages: Math.ceil(total / limit)
         }
       }
     })
@@ -41,7 +76,7 @@ export async function GET(request: NextRequest) {
   } catch (error) {
     return NextResponse.json<ApiResponse>({
       success: false,
-      error: `Error: ${error instanceof Error ? error.message : 'Unknown error'}`
+      error: `Database error: ${error instanceof Error ? error.message : 'Unknown error'}`
     }, { status: 500 })
   }
 }
