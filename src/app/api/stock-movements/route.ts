@@ -48,8 +48,7 @@ export async function GET(request: NextRequest) {
         select: {
           id: true,
           name: true,
-          sku: true,
-          categoryId: true
+          sku: true
         }
       }),
       prisma.user.findMany({
@@ -62,27 +61,14 @@ export async function GET(request: NextRequest) {
       })
     ])
 
-    // Get unique category IDs and fetch categories
-    const categoryIds = [...new Set(items.map(i => i.categoryId).filter(Boolean))]
-    const categories = await prisma.category.findMany({
-      where: { id: { in: categoryIds } },
-      select: {
-        id: true,
-        name: true,
-        color: true
-      }
-    })
-
     // Create lookup maps for better performance
     const itemMap = new Map(items.map(item => [item.id, item]))
     const userMap = new Map(users.map(user => [user.id, user]))
-    const categoryMap = new Map(categories.map(cat => [cat.id, cat]))
 
-    // Transform data with real information
+    // Transform data with real information (without category for now)
     const transformedMovements = movements.map(movement => {
       const item = itemMap.get(movement.itemId)
       const user = userMap.get(movement.userId)
-      const category = item?.categoryId ? categoryMap.get(item.categoryId) : null
 
       return {
         id: movement.id,
@@ -95,10 +81,10 @@ export async function GET(request: NextRequest) {
           id: movement.itemId,
           name: item?.name || 'Unknown Item',
           sku: item?.sku || 'Unknown SKU',
-          category: category ? {
-            name: category.name,
-            color: category.color
-          } : null
+          category: {
+            name: 'Category',
+            color: '#6B7280'
+          }
         },
         user: {
           firstName: user?.firstName || 'Unknown',
