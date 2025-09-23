@@ -34,36 +34,21 @@ export async function GET(request: NextRequest) {
 
     const skip = (page - 1) * limit
 
-    const where: {
-      itemId?: string
-      type?: MovementType
-      reason?: { contains: string; mode: 'insensitive' }
-      createdAt?: { gte?: Date; lte?: Date }
-    } = {}
-
-    if (itemId) {
-      where.itemId = itemId
-    }
-
-    if (type) {
-      where.type = type
-    }
-
-    if (reason) {
-      where.reason = {
-        contains: reason,
-        mode: 'insensitive' as const
-      }
-    }
-
-    if (dateFrom || dateTo) {
-      where.createdAt = {}
-      if (dateFrom) {
-        where.createdAt.gte = new Date(dateFrom)
-      }
-      if (dateTo) {
-        where.createdAt.lte = new Date(dateTo + 'T23:59:59.999Z')
-      }
+    const where = {
+      ...(itemId && { itemId }),
+      ...(type && { type }),
+      ...(reason && {
+        reason: {
+          contains: reason,
+          mode: 'insensitive' as const
+        }
+      }),
+      ...((dateFrom || dateTo) && {
+        createdAt: {
+          ...(dateFrom && { gte: new Date(dateFrom) }),
+          ...(dateTo && { lte: new Date(`${dateTo}T23:59:59.999Z`) })
+        }
+      })
     }
 
     const [movements, total] = await Promise.all([
@@ -77,6 +62,7 @@ export async function GET(request: NextRequest) {
           },
           user: {
             select: {
+              id: true,
               firstName: true,
               lastName: true
             }
@@ -213,49 +199,37 @@ export async function POST(request: NextRequest) {
     ])
 
     // Check for low stock after OUT movements and send email alerts
-    console.log(`Stock movement: ${type}, New quantity: ${newQuantity}, Min stock: ${item.minStock}`)
     if ((type === 'OUT' || type === 'TRANSFER') && newQuantity <= item.minStock) {
-      console.log('Triggering low stock email alert...')
       try {
         // Get all items that are now below minimum stock (including this one)
-        const lowStockItems = await prisma.$queryRaw`
-          SELECT
-            i.*,
-            c.name as "categoryName",
-            c.color as "categoryColor"
-          FROM inventory_items i
-          LEFT JOIN categories c ON i."categoryId" = c.id
-          WHERE i.quantity <= i."minStock"
-          AND i."isActive" = true
-        ` as any[]
+        const allItems = await prisma.inventoryItem.findMany({
+          where: {
+            isActive: true
+          },
+          include: {
+            category: true
+          }
+        })
 
-        console.log(`Found ${lowStockItems.length} low stock items`)
+        const lowStockItems = allItems.filter(item => item.quantity <= item.minStock)
+
         if (lowStockItems.length > 0) {
           const lowStockData: LowStockItem[] = lowStockItems.map(item => ({
             name: item.name,
             sku: item.sku,
-            category: item.categoryName || 'No category',
+            category: item.category?.name || 'No category',
             currentStock: item.quantity,
             minStock: item.minStock,
             shortage: Math.max(0, item.minStock - item.quantity)
           }))
 
-          console.log('Low stock data:', lowStockData)
-
           // Send low stock alert emails (don't await to avoid blocking the response)
-          sendLowStockAlert(lowStockData).then(emailResult => {
-            if (emailResult.success) {
-              console.log(`Low stock alert sent: ${emailResult.message}`)
-            } else {
-              console.error('Failed to send low stock alert:', emailResult.error)
-            }
-          }).catch(error => {
-            console.error('Error sending low stock alert:', error)
+          sendLowStockAlert(lowStockData).catch(() => {
+            // Silently handle email errors to avoid blocking the stock movement
           })
         }
       } catch (error) {
-        // Don't fail the stock movement if email fails
-        console.error('Error checking low stock for email alerts:', error)
+        // Don't fail the stock movement if email fails - silently continue
       }
     }
 
