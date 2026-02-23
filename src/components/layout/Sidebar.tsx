@@ -87,7 +87,10 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
         {/* Header */}
         <div className="flex items-center justify-between h-16 px-4 bg-primary-forest border-b border-secondary-teal/20">
           <div className="flex items-center">
-            <h1 className="text-xl font-bold text-accent-white">MNSTS IMS</h1>
+            <div className="leading-tight">
+              <p className="text-2xl font-extrabold text-accent-white tracking-tight leading-none">Inventory</p>
+              <p className="text-[10px] font-semibold text-accent-lightGold tracking-[0.2em] uppercase mt-0.5">Management System</p>
+            </div>
           </div>
           <button
             onClick={toggleSidebar}
@@ -136,14 +139,6 @@ export default function Sidebar({ isOpen, toggleSidebar }: SidebarProps) {
           </ul>
         </nav>
 
-        {/* Bottom section */}
-        <div className="absolute bottom-0 left-0 right-0 p-4">
-          <div className="bg-secondary-teal/20 rounded-lg p-3">
-            <p className="text-xs text-accent-white/80 text-center">
-              Medellin National Science<br />& Technology School
-            </p>
-          </div>
-        </div>
       </div>
     </>
   )

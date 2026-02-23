@@ -5,8 +5,11 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MNSTS Inventory Management System",
+  title: "Inventory Management System",
   description: "Inventory Management System for Medellin National Science and Technology School",
+  icons: {
+    icon: "/logo.jpg",
+  },
 };
 
 export default function RootLayout({

@@ -121,9 +121,14 @@ export default function AuthPage() {
           <div className="bg-accent-white rounded-2xl shadow-xl overflow-hidden">
             <div className="grid lg:grid-cols-2">
               <div className="bg-primary-forest p-6 sm:p-8 flex items-center justify-center lg:order-first order-last">
-                <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-accent-white tracking-wider">
-                  MNSTS
-                </h1>
+                <div className="text-center">
+                  <p className="text-accent-lightGold text-4xl sm:text-5xl font-extrabold tracking-tight leading-none">
+                    Inventory
+                  </p>
+                  <p className="text-accent-lightGold text-sm sm:text-base font-medium tracking-widest uppercase mt-1">
+                    Management System
+                  </p>
+                </div>
               </div>
               <div className="p-6 sm:p-8 flex items-center justify-center">
                 <div className="text-center max-w-md">
@@ -182,7 +187,7 @@ export default function AuthPage() {
                   <h1 className="text-2xl sm:text-3xl font-bold text-primary-forest mb-2">
                     Create Account
                   </h1>
-                  <p className="text-sm sm:text-base text-secondary-gray">Join MNSTS IMS</p>
+                  <p className="text-sm sm:text-base text-secondary-gray">Create your account</p>
                 </div>
 
                 <form onSubmit={handleRegisterSubmit} className="space-y-3 sm:space-y-4">
@@ -469,12 +474,14 @@ export default function AuthPage() {
             {/* Sliding Logo Component */}
             {/* Mobile-friendly header - visible on small screens */}
             <div className="lg:hidden bg-primary-forest p-6 text-center">
-              <h2 className="text-4xl sm:text-5xl font-bold text-accent-white mb-2 tracking-wider">
-                MNSTS
-              </h2>
-              <p className="text-accent-lightGold text-sm sm:text-base">
-                Inventory Management System
-              </p>
+              <div className="text-center">
+                <p className="text-accent-lightGold text-4xl sm:text-5xl font-extrabold tracking-tight leading-none">
+                  Inventory
+                </p>
+                <p className="text-accent-lightGold text-sm sm:text-base font-medium tracking-widest uppercase mt-1">
+                  Management System
+                </p>
+              </div>
             </div>
 
             {/* Desktop sliding panel - hidden on mobile */}
@@ -493,12 +500,14 @@ export default function AuthPage() {
             >
               <div className="h-full p-12 flex flex-col items-center justify-center relative">
                 <div className="text-center relative z-10">
-                  <h2 className="text-6xl font-bold text-accent-white mb-6 tracking-wider drop-shadow-2xl">
-                    MNSTS
-                  </h2>
-                  <p className="text-accent-lightGold text-lg mb-8">
-                    Inventory Management System
-                  </p>
+                  <div className="text-center mb-8">
+                    <p className="text-accent-lightGold text-6xl font-extrabold tracking-tight leading-none">
+                      Inventory
+                    </p>
+                    <p className="text-accent-lightGold text-base font-medium tracking-widest uppercase mt-2">
+                      Management System
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
